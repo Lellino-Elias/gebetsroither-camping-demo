@@ -2,17 +2,21 @@ import type { CampsiteConfig } from "../types";
 
 /**
  * Komfort-Campingpark Burgstaller — Döbriach am Millstätter See, Kärnten.
- * Vermarktet die Gebetsroither-Urlaubsunterkünfte (Mobilheime & Wohnwagen) an
- * diesem Platz; Buchung & Betreuung laufen über das Gebetsroither Service Center.
- * Alle Texte/Fakten belegt aus dem gebetsroither.com-Listing (Stand-Scrape 2026-06).
- * Bilder = ausschließlich eigene Burgstaller-Fotos in /public/campsites/gebetsroither/
- * (vision-verifiziert). EHRLICH: der Platz liegt NICHT direkt am Wasser, sondern
- * ~100 m vom Seeufer mit privatem Badebereich — nie als "direkt am Wasser" geframt.
- * Preise = REALE Quellpreise (7-Nächte-Beispielpreise Juni 2026), als Richtpreis je
- * Nacht heruntergerechnet und im priceNote offen ausgewiesen (keine Platzhalter).
- * Saison "Mai–September" abgeleitet aus den Service-Center-Hauptsaison-Zeiten (kein
- * explizites Öffnungsdatum auf der Quelle) → im REPORT geflaggt. Keine Auszeichnung
- * eindeutig belegt → awards bleibt leer. Keine eigenen Koordinaten/Logo → ausgeblendet.
+ * Alle Texte/Fakten belegt aus dem Scrape von gebetsroither.com (Stand 2026-06):
+ * raw/pages/01.md (Platz-Listing) + 02.md (Startseite). Bilder = ausschließlich
+ * eigene Burgstaller-Fotos (S3-Pfad campings/burgstaller/) in
+ * /public/campsites/gebetsroither/, jedes per Vision geprüft.
+ *
+ * EHRLICH:
+ *  - Dieses Listing vermarktet die Urlaubsunterkünfte von GEBETSROITHER (Mobilheime
+ *    & Wohnwagen) am Komfort-Campingpark Burgstaller; Buchung/Betreuung über das
+ *    Gebetsroither Service Center → in Intro, Trust, Booking & Anreise offengelegt.
+ *  - Der Platz liegt NICHT direkt am Wasser, sondern ~100 m vom Seeufer, mit eigenem
+ *    privatem Badebereich (großer Steg, Segelschule) → nie "direkt am Wasser" geframt.
+ *  - Preise = REALE Quellpreise: 7-Nächte-Beispielpreise (Juni 2026, regulärer Preis)
+ *    ÷ 7 → Richtpreis/Nacht, offen im priceNote ausgewiesen → keine Platzhalter.
+ *  - Saison "Mai–September" aus den Service-Center-Hauptsaisonzeiten abgeleitet (geflaggt).
+ *  - coords/logo/facebook weggelassen (nicht belegbar); awards leer (keine Auszeichnung).
  */
 const IMG = "/campsites/gebetsroither";
 
@@ -26,103 +30,131 @@ export const gebetsroither: CampsiteConfig = {
   see: "Millstätter See",
   regionLong: "Millstätter See · Kärnten · Österreich",
 
-  claim: "Dein Familienurlaub am Millstätter See",
-  claimEmphasis: "am Millstätter See",
+  claim: "Familiencamping mit kreativer Erlebniswelt am Millstätter See",
+  claimEmphasis: "kreativer Erlebniswelt",
   intro:
-    "Ein Familiencampingplatz, bekannt für Kreativität, Unterhaltung und eine einzigartige Atmosphäre — nur 100 Meter vom Millstätter See, in Döbriach in Kärnten. Komfort-Unterkünfte von Gebetsroither.",
+    "Komfort-Campingpark mitten in der Natur — nur rund 100 Meter vom Millstätter See, mit privatem Badebereich, fantasievoller Erlebniswelt und reichem Programm für die ganze Familie. Die Urlaubsunterkünfte am Platz vermietet und betreut Gebetsroither.",
+
+  // Kein platzeigenes Logo in der Quelle (nur Konzern-Logo) → Wortmarke statt Bild.
 
   statement: {
-    text: "In ganz Österreich bekannt für Kreativität, Unterhaltung und eine einzigartige Atmosphäre.",
+    text: "In ganz Österreich bekannt für Kreativität, tolle Unterhaltung und eine einzigartige Atmosphäre.",
     emphasis: "einzigartige Atmosphäre",
   },
 
   pillars: [
-    { title: "100 Meter zum Millstätter See", text: "Privater Badebereich mit großem Steg und Segelschule — Entspannung in der Natur, nur 100 Meter vom Seeufer entfernt.", image: { src: `${IMG}/badebereich-steg.webp`, alt: "Privater Badebereich des Komfort-Campingparks Burgstaller mit Steg und Rutsche am Millstätter See" } },
-    { title: "Eine kreative Erlebniswelt", text: "Fantasievoll gestaltete Gebäude, eine Showbühne und ausgefallene Themenabende — ein Campingplatz mit unverwechselbarer Atmosphäre.", image: { src: `${IMG}/restaurantgebaeude.webp`, alt: "Fantasievoll gestaltetes Restaurantgebäude am Komfort-Campingpark Burgstaller" } },
-    { title: "Topi Kids Club", text: "Ein reichhaltiges Animationsprogramm für die Jüngsten — mit Paraden, kleinen Festen und jeder Menge Spaß.", image: { src: `${IMG}/topi-kids-show.webp`, alt: "Kinder beim Topi Kids Club auf der Showbühne des Komfort-Campingparks Burgstaller" } },
+    {
+      title: "Am Millstätter See",
+      text: "Nur rund 100 Meter vom Seeufer: privater Badebereich mit großem Steg und eigener Segelschule.",
+      image: { src: `${IMG}/millstaettersee-panorama.webp`, alt: "Panoramablick auf den Millstätter See und die umliegenden Berge" },
+    },
+    {
+      title: "Kreative Erlebniswelt",
+      text: "Fantasievoll gestaltete Gebäude, Themenwelten und liebevolle Details prägen die einzigartige Atmosphäre des Platzes.",
+      image: { src: `${IMG}/erlebniswelt-uboot.webp`, alt: "Markantes Erlebnisgebäude mit U-Boot am Komfort-Campingpark Burgstaller" },
+    },
+    {
+      title: "Topi Kids Club",
+      text: "Reichhaltiges Animationsprogramm, Themenabende, Paraden und kleine Feste für die jüngsten Gäste.",
+      image: { src: `${IMG}/topi-kids-show.webp`, alt: "Kinder beim Topi Kids Club auf der Showbühne des Campingparks" },
+    },
   ],
 
   usps: [
-    "Nur 100 m zum Seeufer",
-    "Privater Badebereich & Steg",
+    "Rund 100 m zum Millstätter See",
+    "Privater Badebereich mit Steg",
     "Topi Kids Club & Animation",
-    "Endreinigung inkl., Bettwäsche bei Mobilheimen",
     "Restaurant, Pizzeria & SB-Markt",
     "Hunde willkommen",
+    "Mobilheime mit Klimaanlage",
   ],
 
   trust: {
-    heading: "Worauf du dich bei Burgstaller verlassen kannst",
+    heading: "Worauf Sie sich hier verlassen können",
     headingEmphasis: "verlassen",
     intro:
-      "Ein Familiencampingplatz am Millstätter See, gebucht und betreut über Gebetsroither — mit 45 Jahren Campingerfahrung, fertig ausgestatteten Unterkünften und bereits im Preis enthaltener Endreinigung; bei den Mobilheimen ist zusätzlich die Bettwäsche inklusive.",
+      "Buchung und Betreuung übernimmt Gebetsroither mit 45 Jahren Campingerfahrung. Die Unterkünfte kommen mit inkludierter Endreinigung — bei den Mobilheimen zusätzlich mit Bettwäsche — und sind online rund um die Uhr buchbar.",
   },
 
-  // Keine eindeutig belegbare Auszeichnung auf der Quelle → ehrlich leer (Band zeigt nur USP-Pills).
+  // Keine eindeutig belegbare Auszeichnung auf der Quelle → ehrlich leer.
   awards: [],
 
-  // Abgeleitet aus den Hauptsaison-Öffnungszeiten des Service Centers ("Mai bis September").
+  // Aus den Service-Center-Hauptsaisonzeiten ("Mai bis September") abgeleitet — kein
+  // explizites Platz-Öffnungsdatum auf der Quelle (im REPORT geflaggt).
   saison: { von: "Mai", bis: "September" },
 
   hero: {
-    aerial: { src: `${IMG}/hero-luftaufnahme.webp`, alt: "Luftaufnahme des Komfort-Campingparks Burgstaller am Ufer des Millstätter Sees in Kärnten" },
+    aerial: { src: `${IMG}/see-luftaufnahme.webp`, alt: "Luftaufnahme des Komfort-Campingpark Burgstaller am Ufer des Millstätter Sees" },
   },
 
   camping: {
-    heading: "Der Campingpark",
+    heading: "Komfort-Campingpark am See",
     intro:
-      "12 Hektar unter wunderschönen Laubbäumen, nur 100 Meter vom Millstätter See: Restaurant und Pizzeria, SB-Markt, ein privater Badebereich mit Steg und jede Menge Platz zum Erholen.",
+      "Auf rund 12 Hektar mit altem Laubbaumbestand: privater Seezugang, ein lebendiger Ortskern mit Restaurant, Pizzeria und SB-Markt und alles, was einen unbeschwerten Campingurlaub ausmacht.",
     features: [
-      { title: "Eine Erlebniswelt für sich", text: "Fantasievoll gestaltete Gebäude, eine Showbühne und eine einzigartige Atmosphäre — in ganz Österreich für seine Kreativität bekannt.", image: { src: `${IMG}/erlebniswelt-uboot.webp`, alt: "Kreativ gestaltetes Gebäude mit U-Boot am Komfort-Campingpark Burgstaller" } },
-      { title: "Restaurant, Pizzeria & Showbühne", text: "Restaurant, Pizzeria und Strandbuffet direkt am Platz — abends sorgt die Showbühne für Unterhaltung.", image: { src: `${IMG}/restaurant-terrasse.webp`, alt: "Gäste auf der Restaurantterrasse des Komfort-Campingparks Burgstaller" } },
-      { title: "Alles direkt am Platz", text: "SB-Markt für den täglichen Einkauf, dazu Bücherei, Kinoraum, Kegelbahnen und ein Internet-Corner.", image: { src: `${IMG}/servicegebaeude.webp`, alt: "Service- und Sanitärgebäude am Komfort-Campingpark Burgstaller" } },
-      { title: "12 Hektar voller Möglichkeiten", text: "Auf 12 Hektar unter alten Laubbäumen finden Spiel- und Sportplätze, Tischtennis, Beachvolleyball und mehr ihren Platz.", image: { src: `${IMG}/wegweiser-ausstattung.webp`, alt: "Wegweiser zu den Anlagen und Sportplätzen am Komfort-Campingpark Burgstaller" } },
-      { title: "Privater Badebereich", text: "Ein eigener Badebereich mit großem Steg — entspannt ins kühle Nass des Millstätter Sees, nur 100 Meter vom Platz.", image: { src: `${IMG}/badesteg.webp`, alt: "Großer Badesteg mit Sprungturm am Millstätter See beim Komfort-Campingpark Burgstaller" } },
-      { title: "Tennis, Minigolf & Go-Karts", text: "Tennisplätze, Minigolf und Go-Karts, mit denen die Kinder über den Platz flitzen — Bewegung und Spaß für jedes Alter.", image: { src: `${IMG}/minigolf.webp`, alt: "Minigolfanlage am Komfort-Campingpark Burgstaller" } },
+      { title: "Privater Badebereich", text: "Eigener Seezugang mit großem Steg und Wasserrutsche — der private Badebereich liegt nur rund 100 Meter vom Platz.", image: { src: `${IMG}/badebereich-rutsche.webp`, alt: "Privater Badebereich mit Wasserrutsche und Steg am Millstätter See" } },
+      { title: "Badesteg & Sprungturm", text: "Stege weit in den Millstätter See hinaus, mit Sprungturm und viel Platz zum Sonnen und Schwimmen.", image: { src: `${IMG}/badesteg-sprungturm.webp`, alt: "Badesteg mit Sprungturm am Millstätter See" } },
+      { title: "Restaurant & Pizzeria", text: "Markante, fantasievoll gestaltete Gebäude beherbergen Restaurant, Pizzeria und Strandbuffet direkt am Platz.", image: { src: `${IMG}/restaurant-pizzeria.webp`, alt: "Fantasievoll gestaltetes Restaurantgebäude am Komfort-Campingpark Burgstaller" } },
+      { title: "Alles am Platz", text: "SB-Markt, Kegelbahnen, Bücherei, Jugendraum, Internet-Corner, Solarium und mehr — kurze Wege zu allem.", image: { src: `${IMG}/ausstattung-wegweiser.webp`, alt: "Wegweiser mit der Ausstattung des Campingparks: Spielplätze, Sportplätze, SB-Markt und mehr" } },
+      { title: "Service & Sanitär", text: "Gepflegte Servicegebäude und Sanitäranlagen sorgen für Komfort im Campingalltag.", image: { src: `${IMG}/service-sanitaer.webp`, alt: "Servicegebäude am Komfort-Campingpark Burgstaller" } },
+      { title: "Lebendiger Mittelpunkt", text: "Ein zentraler Platz mit Rezeption, Almstub'n, SB-Markt und Pizzeria bildet das Herz des Campingparks.", image: { src: `${IMG}/marktplatz.webp`, alt: "Zentraler Platz mit Rezeption, SB-Markt und Pizzeria im Campingpark" } },
     ],
   },
 
   mobilheime: {
-    heading: "Unterkünfte von Gebetsroither",
+    heading: "Unterkünfte am Platz",
     intro:
-      "Komplett ausgestattete Mobilheime und Wohnwagen direkt am Campingpark — alle mit Klimaanlage und inkludierter Endreinigung; bei den Mobilheimen ist zusätzlich die Bettwäsche bereits inklusive. Einfach ankommen und Urlaub genießen.",
+      "Lieber feste Wände als Zelt? Gebetsroither vermietet moderne Mobilheime und Wohnwagen direkt am Komfort-Campingpark — mit Klimaanlage und inkludierter Endreinigung; bei den Mobilheimen zusätzlich mit Bettwäsche.",
     items: [
-      { name: "Mobilheim Premium", kind: "Mobilheim · bis 6 Personen", text: "Geräumiges Mobilheim mit vollwertigem Bad, Küche mit Geschirrspüler und Klimaanlage — rund 24 bis 34 m² Wohnfläche, dazu Terrasse mit Campingtisch und Sonnenschirm.", image: { src: `${IMG}/mobilheim-premium.webp`, alt: "Modernes Mobilheim mit Terrasse am Komfort-Campingpark Burgstaller" }, priceFrom: 173, features: ["4–6 Personen", "Klimaanlage & Bad", "Endreinigung & Bettwäsche inkl."] },
-      { name: "Wohnwagen Premium", kind: "Wohnwagen · 2 Erw. + 3 Kinder", text: "Gemütlicher Wohnwagen mit Klimaanlage und Vorzelt (ca. 11 m²), Stockbett mit Kindersicherung und eigener Kochgelegenheit — ideal für Familien.", image: { src: `${IMG}/wohnwagen-premium.webp`, alt: "Gebetsroither Wohnwagen mit Vorzelt auf einem Stellplatz am Komfort-Campingpark Burgstaller" }, priceFrom: 102, features: ["2 Erw. + 3 Kinder", "Vorzelt ca. 11 m²", "Klimaanlage"] },
+      {
+        name: "Mobilheim Premium",
+        kind: "Mobilheim · bis 6 Personen",
+        text: "Modernes Mobilheim mit überdachter Terrasse, vollwertigem Bad mit Dusche/WC, Klimaanlage, Geschirrspüler und voll ausgestatteter Küche.",
+        image: { src: `${IMG}/mobilheim-premium.webp`, alt: "Modernes Gebetsroither-Mobilheim mit überdachter Terrasse am Campingpark" },
+        priceFrom: 173,
+        features: ["24–34 m² Wohnfläche", "bis 6 Personen", "Klimaanlage & Geschirrspüler", "Endreinigung & Bettwäsche inkl."],
+      },
+      {
+        name: "Wohnwagen Premium",
+        kind: "Wohnwagen · 2 Erw. + 3 Kinder",
+        text: "Komfort-Wohnwagen mit Vorzelt (ca. 11 m²), Klimaanlage und Kochgelegenheit — ideal für Familien mit Kindern.",
+        image: { src: `${IMG}/wohnwagen-premium.webp`, alt: "Gebetsroither-Wohnwagen mit Vorzelt am Komfort-Campingpark Burgstaller" },
+        priceFrom: 102,
+        features: ["14,3 m² + Vorzelt ca. 11 m²", "2 Erwachsene, 3 Kinder", "Klimaanlage", "Endreinigung inkl."],
+      },
     ],
   },
 
   kinder: {
-    heading: "Für Familien & Kinder",
+    heading: "Für Kinder & Familien",
     intro:
-      "Bei Burgstaller wird es Kindern nie langweilig: Animation im Topi Kids Club, Spielplätze, Wasserspaß und jede Menge Platz zum Toben.",
+      "Beim Topi Kids Club wird es nie langweilig: Animation, Themenabende und Shows, dazu Spielplätze, Rutschen und ein eigenes Kino.",
     features: [
-      { title: "Spielplätze & Topi Kids Club", text: "Kinderspielplatz, Wasserspielplatz und ein langer Rutschenturm — dazu das reichhaltige Animationsprogramm im Topi Kids Club mit Paraden, Themenabenden und kleinen Festen. Go-Karts und Bimmelbahn warten ebenfalls.", image: { src: `${IMG}/wasserspielplatz.webp`, alt: "Kinder am Wasserspielplatz des Komfort-Campingparks Burgstaller" } },
-      { title: "Wasserspaß am See", text: "Baden, Reifen-Rutschen und Plantschen am privaten Badebereich, nur 100 Meter vom Platz entfernt.", image: { src: `${IMG}/kinder-wasserspass.webp`, alt: "Kinder beim Wasserspaß auf dem Millstätter See beim Komfort-Campingpark Burgstaller" } },
-      { title: "Kinoraum & Kinderkino", text: "An regnerischen Tagen lockt der eigene Kinoraum mit Kinderkino — Unterhaltung bei jedem Wetter.", image: { src: `${IMG}/kino-burgstaller.webp`, alt: "Kinoraum-Schild am Komfort-Campingpark Burgstaller" } },
+      { title: "Wasserspielplatz", text: "Wasserspielplatz und Spielbereiche mit Rutschen — Toben und Planschen den ganzen Tag.", image: { src: `${IMG}/wasserspielplatz.webp`, alt: "Kinder am Wasserspielplatz des Campingparks" } },
+      { title: "Rutschenturm & Kletterwand", text: "Langer Rutschenturm über den Hügel und eine Kletterwand für kleine Abenteurer.", image: { src: `${IMG}/rutschenturm-kletterwand.webp`, alt: "Großer Rutschenturm und Kletterwand am Campingpark" } },
+      { title: "Campingstar-Show", text: "Eigene Showbühne mit Kinderprogramm, Talentshows und ausgefallenen Themenabenden.", image: { src: `${IMG}/campingstar-show.webp`, alt: "Kinder bei der Campingstar-Show auf der Bühne des Campingparks" } },
     ],
   },
 
   aktivitaeten: {
     heading: "Aktiv am Millstätter See",
     intro:
-      "Baden, Segeln, Sport und Ausflüge in die Bergwelt — rund um den Campingpark wird es nie langweilig.",
+      "Baden, Segeln, Reiten und Ausflüge in die Nockberge — rund um den Campingpark gibt es viel zu erleben.",
     items: [
-      { title: "Baden & Stand-Up-Paddeln", text: "Der Millstätter See lädt zum Schwimmen, SUPen und Plantschen ein — der private Badebereich ist nur 100 Meter entfernt.", image: { src: `${IMG}/sup-paddeln.webp`, alt: "Jugendliche beim Stand-Up-Paddeln auf dem Millstätter See" } },
-      { title: "Segeln & Segelschule", text: "Eine eigene Segelschule am See macht den Einstieg leicht — Segeln und Bootfahren direkt vom Steg.", image: { src: `${IMG}/segeln.webp`, alt: "Segelboot auf dem Millstätter See vor Bergkulisse" } },
-      { title: "Reiten", text: "Auf dem Reitplatz drehen schon die Kleinen ihre Runden hoch zu Ross.", image: { src: `${IMG}/reiten.webp`, alt: "Kind beim Reiten auf dem Reitplatz am Komfort-Campingpark Burgstaller" } },
-      { title: "Sport: Fußball, Tennis & Beachvolleyball", text: "Fußballplatz, Tennisplätze, Beachvolleyball und Boccia — Bewegung für aktive Urlaubstage.", image: { src: `${IMG}/fussballplatz.webp`, alt: "Kinder beim Fußballspielen auf dem Sportplatz am Komfort-Campingpark Burgstaller" } },
-      { title: "Ausflüge & Schifffahrt", text: "Mit dem Schiff über den Millstätter See, Radwege rund ums Ufer und Wanderungen im Biosphärenpark Nockberge.", image: { src: `${IMG}/schifffahrt.webp`, alt: "Ausflugsschiff auf dem Millstätter See" } },
-      { title: "Wandern & Sehenswürdigkeiten", text: "Aussichtsberg Tschiernock, Burg Sommeregg mit Restaurant und Spittal an der Drau mit Schloss Porcia liegen in der Umgebung.", image: { src: `${IMG}/millstaettersee-panorama.webp`, alt: "Panoramablick über den Millstätter See und die umliegenden Berge" } },
+      { title: "Stand-Up-Paddeln", text: "Aufs Board und raus auf den klaren Millstätter See — nur ein paar Schritte vom Platz.", image: { src: `${IMG}/sup-paddeln.webp`, alt: "Jugendliche beim Stand-Up-Paddeln auf dem Millstätter See" } },
+      { title: "Segeln & Segelschule", text: "Der private Badebereich verfügt über eine eigene Segelschule — ideal für erste Schläge auf dem See.", image: { src: `${IMG}/segeln.webp`, alt: "Segelboot auf dem Millstätter See vor Bergkulisse" } },
+      { title: "Reiten", text: "Auf der Reitbahn am Platz können Kinder erste Runden im Sattel drehen.", image: { src: `${IMG}/reiten.webp`, alt: "Kind beim Reiten auf der Reitbahn am Campingpark" } },
+      { title: "Sport & Fußball", text: "Fußballplatz, Beach-Volleyball, Tischtennis, Boccia und Minigolf sorgen für aktive Urlaubstage.", image: { src: `${IMG}/fussballplatz.webp`, alt: "Kinder beim Fußballspielen auf dem Sportplatz des Campingparks" } },
+      { title: "Schifffahrt am See", text: "Eine Rundfahrt mit dem Ausflugsschiff zeigt den Millstätter See von seiner schönsten Seite.", image: { src: `${IMG}/schifffahrt.webp`, alt: "Ausflugsschiff auf dem Millstätter See" } },
     ],
   },
 
   anreise: {
-    heading: "So findest du uns",
+    heading: "So finden Sie uns",
     modes: [
-      { title: "Anreise", text: "Der Komfort-Campingpark Burgstaller liegt in Döbriach am Millstätter See, Seefeldstraße 16 — rund 10 Gehminuten vom Ortszentrum Döbriach entfernt." },
-      { title: "Ruhig & naturnah", text: "Fernab von der Hektik der Straßen, inmitten der Natur und nur 100 Meter vom Seeufer des Millstätter Sees." },
-      { title: "Ausflugsziele", text: "Spittal an der Drau mit Schloss Porcia, der Biosphärenpark Nockberge, der Aussichtsberg Tschiernock und die Burg Sommeregg liegen in der Umgebung." },
+      { title: "Mit dem Auto", text: "Nach Döbriach am Millstätter See, Seefeldstraße 16 — der Campingpark liegt nur rund 10 Gehminuten vom Ort entfernt." },
+      { title: "In der Umgebung", text: "Spittal an der Drau mit Schloss Porcia, der Biosphärenpark Nockberge und die Burg Sommeregg liegen in Reichweite." },
+      { title: "Buchung & Service", text: "Buchung und Betreuung über das Gebetsroither Service Center — online rund um die Uhr buchbar." },
     ],
   },
 
@@ -130,32 +162,32 @@ export const gebetsroither: CampsiteConfig = {
     heading: "Ein Platz zum Wiederkommen",
     headingEmphasis: "Wiederkommen",
     intro:
-      "Ein paar Eindrücke vom Komfort-Campingpark Burgstaller am Millstätter See — von der Showbühne bis zum Badesteg.",
-    tag: "Sommer am Millstätter See",
+      "Ein paar Eindrücke vom Komfort-Campingpark Burgstaller am Millstätter See.",
+    tag: "Millstätter See · Kärnten",
     images: [
-      { src: `${IMG}/showbuehne-abend.webp`, alt: "Abendliche Showbühne mit Publikum am Komfort-Campingpark Burgstaller" },
-      { src: `${IMG}/badebereich-sprungturm.webp`, alt: "Badebereich mit Sprungturm am Millstätter See" },
-      { src: `${IMG}/rutsche-kletterwand.webp`, alt: "Langer Rutschenturm und Kletterwand am Komfort-Campingpark Burgstaller" },
-      { src: `${IMG}/kinder-buehne.webp`, alt: "Kinder beim Singen auf der Bühne am Komfort-Campingpark Burgstaller" },
+      { src: `${IMG}/strandbad.webp`, alt: "Strandbad mit Badesteg und Sprungturm am Millstätter See" },
+      { src: `${IMG}/restaurant-terrasse.webp`, alt: "Sonnenterrasse am Restaurant des Campingparks" },
+      { src: `${IMG}/showbuehne-abend.webp`, alt: "Abendliche Showbühne mit Publikum am Campingpark" },
+      { src: `${IMG}/kino-burgstaller.webp`, alt: "Kino-Schild des Komfort-Campingpark Burgstaller" },
     ],
   },
 
   booking: {
     heading: "Verfügbarkeit & Anfrage",
     intro:
-      "Wähle Zeitraum, Unterkunft und Personen — Gebetsroither meldet sich mit deiner persönlichen Verfügbarkeit. Online ist rund um die Uhr buchbar.",
+      "Zeitraum, Unterkunft und Personen wählen — Gebetsroither meldet sich mit Ihrer persönlichen Verfügbarkeit. Online rund um die Uhr buchbar.",
     pricesArePlaceholder: false,
     priceNote:
-      "Richtpreise je Nacht, abgeleitet aus 7-Nächte-Beispielpreisen (Juni 2026, 2 Personen, inkl. Endreinigung; bei Mobilheimen zusätzlich Bettwäsche). Der endgültige Preis hängt von Reisezeitraum, Unterkunft und Belegung ab.",
+      "Richtpreise/Nacht, abgeleitet aus den 7-Nächte-Beispielpreisen der Quelle (Juni 2026, regulärer Preis) · inkl. Endreinigung, bei Mobilheimen zusätzlich Bettwäsche · Haupt-/Nebensaison kann abweichen — bitte bestätigen.",
     highlight: {
-      title: "Endreinigung & Bettwäsche inklusive",
-      text: "Bei den Mobilheimen sind Endreinigung und Bettwäsche bereits im Preis enthalten — einfach ankommen und Urlaub genießen.",
+      title: "Inklusive Endreinigung",
+      text: "Bei allen Unterkünften ist die Endreinigung inkludiert; bei den Mobilheimen zusätzlich die Bettwäsche.",
     },
     categories: [
-      // Reale Quellpreise (7-Nächte-Gesamtpreise, 2 Pers.) ÷ 7 → Richtpreis/Nacht; Einheitspreis, daher kein Aufpreis je Person.
-      { id: "wohnwagen", label: "Wohnwagen Premium", perNight: 102, perExtraGuest: 0 },
-      { id: "mobilheim-aplus", label: "Mobilheim Premium (A+)", perNight: 173, perExtraGuest: 0 },
-      { id: "mobilheim-la", label: "Mobilheim Premium (LA)", perNight: 175, perExtraGuest: 0 },
+      // Reale Quellpreise (01.md): 7-Nächte-Beispielpreise Juni 2026 (regulär) ÷ 7 → Richtpreis/Nacht.
+      { id: "wohnwagen", label: "Wohnwagen Premium", perNight: 102, perExtraGuest: 0 }, // 712,40 € ÷ 7 = 101,77
+      { id: "mobilheim-aplus", label: "Mobilheim Premium (A+)", perNight: 173, perExtraGuest: 0 }, // 1.208,10 € ÷ 7 = 172,59
+      { id: "mobilheim-la", label: "Mobilheim Premium (LA)", perNight: 175, perExtraGuest: 0 }, // 1.223,60 € ÷ 7 = 174,80
     ],
   },
 
@@ -165,6 +197,7 @@ export const gebetsroither: CampsiteConfig = {
     telHref: "tel:+43361226300",
     mail: "office@gebetsroither.com",
     adresse: "Seefeldstraße 16 · 9873 Döbriach · Kärnten",
+    // coords weggelassen (keine Koordinaten auf der Quelle, keine Geokodierung im Cage) → Karte ausgeblendet.
   },
 
   languages: ["DE"],
@@ -174,18 +207,17 @@ export const gebetsroither: CampsiteConfig = {
       label: "Camping",
       href: "#camping",
       children: [
-        { label: "Lage am See", href: "#camping" },
+        { label: "Badebereich am See", href: "#camping" },
+        { label: "Restaurant & Pizzeria", href: "#camping" },
         { label: "Ausstattung", href: "#camping" },
-        { label: "Privater Badebereich", href: "#camping" },
       ],
     },
     {
       label: "Unterkünfte",
       href: "#mobilheime",
       children: [
-        { label: "Mobilheime", href: "#mobilheime" },
-        { label: "Wohnwagen", href: "#mobilheime" },
-        { label: "Inklusive", href: "#mobilheime" },
+        { label: "Mobilheim Premium", href: "#mobilheime" },
+        { label: "Wohnwagen Premium", href: "#mobilheime" },
       ],
     },
     {
@@ -193,17 +225,17 @@ export const gebetsroither: CampsiteConfig = {
       href: "#kinder",
       children: [
         { label: "Topi Kids Club", href: "#kinder" },
-        { label: "Spielplätze", href: "#kinder" },
-        { label: "Kinoraum", href: "#kinder" },
+        { label: "Spielplätze & Rutschen", href: "#kinder" },
+        { label: "Showbühne & Kino", href: "#kinder" },
       ],
     },
     {
       label: "Aktiv",
       href: "#aktivitaeten",
       children: [
-        { label: "Baden & SUP", href: "#aktivitaeten" },
-        { label: "Segeln", href: "#aktivitaeten" },
-        { label: "Ausflüge", href: "#aktivitaeten" },
+        { label: "Baden & Segeln", href: "#aktivitaeten" },
+        { label: "Reiten & Sport", href: "#aktivitaeten" },
+        { label: "Schifffahrt", href: "#aktivitaeten" },
       ],
     },
     {
@@ -212,7 +244,7 @@ export const gebetsroither: CampsiteConfig = {
       children: [
         { label: "Preise", href: "#booking" },
         { label: "Anreise", href: "#anreise" },
-        { label: "Galerie", href: "#galerie" },
+        { label: "Kontakt", href: "#anreise" },
       ],
     },
   ],
