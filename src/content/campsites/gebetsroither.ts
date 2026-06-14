@@ -109,7 +109,7 @@ export const gebetsroither: CampsiteConfig = {
       {
         name: "Mobilheim Premium",
         kind: "Mobilheim · bis 6 Personen",
-        text: "Modernes Mobilheim mit überdachter Terrasse, vollwertigem Bad mit Dusche/WC, Klimaanlage, Geschirrspüler und voll ausgestatteter Küche.",
+        text: "Modernes Mobilheim mit Terrasse, Bad (Dusche/WC), Klimaanlage, Geschirrspüler und voll ausgestatteter Küche.",
         image: { src: `${IMG}/mobilheim-premium.webp`, alt: "Modernes Gebetsroither-Mobilheim mit überdachter Terrasse am Campingpark" },
         priceFrom: 173,
         features: ["24–34 m² Wohnfläche", "bis 6 Personen", "Klimaanlage & Geschirrspüler", "Endreinigung & Bettwäsche inkl."],
